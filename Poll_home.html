@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html>
 <!- add title to pages. php .include() stuff like stylesheet refs to reduce redundancy->
 <!- main content will be like about us. Add error page
 WHen user logs out but backs into user.html deny access -Done
@@ -11,7 +11,10 @@ view my votes
 prevent strings when voting
 prevent user from inputting nothing when votint (which resukts in 0 value in databse)
 when doing ranking votes, 5 should be I want and 1 should be I dont want
-prevent user from voting twice --Done->
+prevent user from voting twice --Done
+When voting type is straw poll, prevent multiple entries. Actually change to checkbox, just makes it nicer. Low priority?
+->
+
 <head>
 <title>Poll - Orange Slice</title>
 <meta charset="UTF-8">
@@ -26,8 +29,8 @@ prevent user from voting twice --Done->
 <nav class="w3-bar w3-black">
   <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
   <a href="sign-up.html" class="w3-button w3-bar-item">Sign-Up</a>
-  <a href="test.php" class="w3-button w3-bar-item">Login</a>
- 
+  <a href="login.php" class="w3-button w3-bar-item">Login</a>
+
 </nav>
 </body>
 </html>
