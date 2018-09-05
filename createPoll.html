@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+</head>
+<body>
+<script>
+  function addFields(){
+            var number = document.getElementById("numOfOptions").value;
+            var container = document.getElementById("container");
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                container.appendChild(document.createTextNode("Option " + (i+1)));
+                var input = document.createElement("input");
+                input.type = "text";
+				input.name=("option" + i);
+                container.appendChild(input);
+                container.appendChild(document.createElement("br"));
+            }
+			
+			document.getElementById("f").innerHTML=('<input type="hidden" name="clicked" value="">');
+        }
+</script>
+<nav class="w3-bar w3-black">
+  <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
+  <a href="logout.php" class="w3-button w3-bar-item">Logout</a>
+  <a href="my_polls.html" class="w3-button w3-bar-item">My Polls</a>
+</nav>
+<div style="text-align:center;">
+
+
+<!-drop down of selections->
+<form action="createPoll.php" method="POST">
+<h3>Poll Name</h3>
+<input type="text" name="pollName"><br/>
+<h4>Type of Poll</h4>
+<select name="typeOfPoll">
+  <option value="strawPoll">Staw Poll</option>
+  <option value="condorchet">Condorchet</option>
+</select>
+
+<br/>
+
+<h3>Number of Options</h3>
+
+<input type="text" id="numOfOptions" name="numOfOptions" value=""><br />
+
+<a href="#" id="filldetails" onclick="addFields()">Select</a>
+<div id="f" ></div>
+    <div id="container"> </div>
+<h3>Open Time</h3>
+<input type="text" name="open"><br />
+<input type="submit" value="Submit">	
+</form>
+</div>	
+</body>
+</html>

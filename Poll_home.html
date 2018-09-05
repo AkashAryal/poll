@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<!- add title to pages. php .include() stuff like stylesheet refs to reduce redundancy->
+<!- main content will be like about us. Add error page
+WHen user logs out but backs into user.html deny access -Done
+login only works if I manually log in first to mysql through shell
+check user is logged on when accessing crreatePoll, user,, my polls. run test.php on each including php ?
+change vote
+consistenes between using session and hidden input fields to transfer variables
+view my votes
+prevent strings when voting
+prevent user from inputting nothing when votint (which resukts in 0 value in databse)
+when doing ranking votes, 5 should be I want and 1 should be I dont want
+prevent user from voting twice --Done->
+<head>
+<title>Poll - Orange Slice</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+
+</head>
+<body>
+<h1>The Goal of All Life is Death -Ainz Ooal Gown-Sama</h1>
+<!-If user is logged in and happens to click home to come here, the nav bars should change to have the same options as the user.html one->
+
+<nav class="w3-bar w3-black">
+  <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
+  <a href="sign-up.html" class="w3-button w3-bar-item">Sign-Up</a>
+  <a href="test.php" class="w3-button w3-bar-item">Login</a>
+ 
+</nav>
+</body>
+</html>
