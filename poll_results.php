@@ -40,7 +40,7 @@ echo "<script>alert('Log back in!');window.location.href='login.html';</script>"
 $array= $_SESSION['arr'];
 $index = $_GET['index'];
 $row = $array[$index][0];
-
+//$date=$_SESSION['date'];
 $str=$row['data']."<br />";
 $arr=explode('|',$str);
 
@@ -65,7 +65,7 @@ $PollName=" ".$arr[0];
 	<h1><?php echo "Poll Results: $PollName";?></h1>
 
 	<em>
-
+          <!-Update num of options, votes. Input Votes.->
 		<?php echo "Poll Type: ".$arr[1]." | Poll ID: ".$row['poll_id']."<br />";echo"Number of Options: ".$election->countCandidates() ;?>
 		|
 		Number of votes :
@@ -76,11 +76,23 @@ $PollName=" ".$arr[0];
 
 	<ul>
 	<?php
-	foreach ($election->getCandidatesList() as $candidatName)
-	{
+  //var_dump($arr);
+  //echo"<pre>";
+  //var_dump($array);
+  //echo"</pre>";
+  $arr2=$array[$index][1];
+  $numVotes=$_SESSION['numVotesArr'];
+    for($j=0; $j<count($arr2); $j++)
+    {
+      $wi=$arr2[$j];
+      $cat = substr($wi, 0, strpos($wi, ":"));
+      $tempArr=$array[$index][3];
+      $vo = $tempArr[$j];
+      echo "<li>$cat - $vo Vote(s)</;i>";
+    }
   //  echo $election->getCandidateObjectByName("$candidatName");
-		echo '<li>'.$candidatName.'</li>' ;
-	}
+	//	echo '<li>'.$candidatName." - ".'</li>' ;
+
 	?>
 	</ul>
 
@@ -108,6 +120,16 @@ $PollName=" ".$arr[0];
 	}
   */
 ?>
+<?php
+  $date=$array[$index][2];
+  if(date('Y-m-d H:i:s') > $date)
+  {
+
+  }
+  else {
+    die();
+  }
+ ?>
 <hr style="clear:both;">
 
 	<h2>Winner by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>

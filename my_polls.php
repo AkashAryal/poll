@@ -67,7 +67,7 @@ $host="localhost";
 			$q = "select value from votes where poll_id='$poll_id'";
 			$r = $conn->query($q) or die($conn->error);
 			$ensureArrGets0FilledOnlyOnce = 0;
-			if(mysqli_num_rows($r) !=0){
+		//	if(mysqli_num_rows($r) !=0){
 
 				while($row2 = $r->fetch_assoc()){
 
@@ -92,15 +92,21 @@ $host="localhost";
 				$category=substr($winner, 0, strpos($winner, ":"));
 				$votes = $numVotes[$maxIndex];
 
-				echo "VOTES:<br />";
+				//echo "VOTES:<br />";
 				for($j=0; $j<count($arr2); $j++)
 				{
 					$wi=$arr2[$j];
 					$cat = substr($wi, 0, strpos($wi, ":"));
 					$vo = $numVotes[$j];
-					echo "-- $cat: $vo<br />";
+				//	echo "-- $cat: $vo<br />";
 				}
-				if(date('Y-m-d H:i:s') > $mysqlDate)
+        $dataHolder[$f][1]=$arr2;
+      //  $_SESSION['votesArr']=$arr2;
+        $dataHolder[$f][2]=$mysqlDate;
+      //  $_SESSION['date']=$mysqlDate;
+      $_SESSION['numVotesArr']=$numVotes;
+      $dataHolder[$f][3]=$numVotes;
+				/*if(date('Y-m-d H:i:s') > $mysqlDate)
 				{
 					echo "-- Winner: ".$category." -> Votes: ".$votes;
 					echo "<br><br>";
@@ -108,13 +114,14 @@ $host="localhost";
 				else{
 					echo "--Winner: Poll is still ongoing<br /><br />";
 				}
+        */
 			}
 			else{ //condorchet and other stuff
 
 			}
-		}
-		else
-			echo "<br>";
+		//}
+		//else
+			//echo "<br>";
       $f++;
 		}
 	}
