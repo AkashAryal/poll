@@ -57,9 +57,11 @@ $myVote3->addTags('first');
     //This below (2 lines) is how i will get my num of canidates and num of total votes
     //print_r($election->getCandidatesList(true));
     // echo "<br>".$election->getCandidatesList(true)[1]."<br>".$election->countVotes()."<br>";
+
 $array= $_SESSION['arr'];
 $index = $_GET['index'];
-
+echo $index;
+if($array[$index][6]){
 $votesArray=$array[$index][5];
 echo"Before: ";
 print_r($votesArray);
@@ -80,8 +82,8 @@ print_r($options);
 //echo "<br>".$options[1]['option'];
 
 echo"<br><br>A5:";
-print_r($votesArray[5]);
-$hgf=$votesArray[5];
+//print_r($votesArray[5]);
+//$hgf=$votesArray[5];
 //echo $hgf[1]['option'];
 //echo count($votesArray);
 //$out="";
@@ -131,6 +133,10 @@ for($ii=0; $ii<count($votesArray);$ii++){
   //$vote->addTags();     //TAGS MAY NOT BE THE BEST IDEAer.
 }
 //echo $electionREAL->countVotes();
+}
+else {
+
+}
 
 
 
@@ -139,9 +145,9 @@ for($ii=0; $ii<count($votesArray);$ii++){
 
 
 
-
-
-
+$arr2=$array[$index][1];
+$numVotes=$_SESSION['numVotesArr'];
+$arrForListCand=explode("|",$arr2);
 
 $row = $array[$index][0];
 //$date=$_SESSION['date'];
@@ -170,10 +176,19 @@ $PollName=" ".$arr[0];
 
 	<em>
           <!-Update num of options, votes. Input Votes.->
-		<?php echo "Poll Type: ".$arr[1]." | Poll ID: ".$row['poll_id']."<br />";echo"Number of Options: ".$election->countCandidates() ;?>
+		<?php echo "Poll Type: ".$arr[1]." | Poll ID: ".$row['poll_id']."<br />";
+    if($array[$index][6])
+    echo"Number of Options: ".$electionREAL->countCandidates();
+    else {
+      echo"Number of Options: ".count($arrForListCand);
+    }?>
 		|
 		Number of votes :
-		<?php echo $electionREAL->countVotes() ;?>
+		<?php
+    if($array[$index][6])
+    echo $electionREAL->countVotes();
+    else
+    echo "0";?>
 	</em>
 
 	<h2>Candidates list (Stats go here?):</h2>
@@ -189,16 +204,20 @@ $PollName=" ".$arr[0];
 //  *****************if($_SESSION['anyVotes']==false)
   //die();
 
-  $arr2=$array[$index][1];
-  $numVotes=$_SESSION['numVotesArr'];
-    for($j=0; $j<count($arr2); $j++)
+
+   for($j=0; $j<count($arrForListCand); $j++){
+     $cat=$arrForListCand[$j];
+     echo "<li>$cat</;i>";
+   }
+  /*  for($j=0; $j<count($arr2); $j++)
     {
       $wi=$arr2[$j];
       $cat = substr($wi, 0, strpos($wi, ":"));
       $tempArr=$array[$index][3];
       $vo = $tempArr[$j];
       echo "<li>$cat</;i>";
-    }
+    }*/
+
   //  echo $election->getCandidateObjectByName("$candidatName");
 	//	echo '<li>'.$candidatName." - ".'</li>' ;
 
@@ -234,13 +253,57 @@ $PollName=" ".$arr[0];
 
 
 <?php
-  $date=$array[$index][2];  //|| $_SESSION['anyVotes']==true
-  if(date('Y-m-d H:i:s') > $date)
+  //$date=$array[$index][2];  //|| $_SESSION['anyVotes']==true
+  if(isset($array[$index][2]))
   {
+    $date=$array[$index][2];
+    if(date('Y-m-d H:i:s') > $date){
 
-  }
-  else {
-    die();
+    }  else {
+        die();
+      }
+    /*$electionREAL= new Election();
+
+    //add canidates. can use any index from votesarr
+    for($ii=0; $ii<count($votesArray[0]);$ii++){
+      $electionREAL->addCandidate($votesArray[0][$ii]['option']);
+    }
+    for($ii=0; $ii<count($votesArray);$ii++){
+      $out="";
+      $firstDone=false;
+      $hgf=$votesArray[$ii];
+      for($i=0; $i<(count($hgf)-1); $i++)           //IMPORTANT: IF ALL VOTES ARE 0 THEN YOU SHOULD NOT PUT AT ALL.
+      {                                             //cHECK IF STRING IS NULL WHEN IMPLEMENTING THIS!!!!!
+                                                  //IF ALL VOTES ARE 3 OR 2 OR 1 OR ANY NON ZERO THEN YOU CAN
+      //echo "<br>".$hgf[$i]['option'];           //INPUT THEM. CONDORCET ALLOWS YOU IT.
+        if(!$hgf[$i]['place']==0){
+          if($firstDone==false){
+            if($hgf[$i]['place'] > $hgf[$i+1]['place'])
+            $out.=$hgf[$i]['option']." < ".$hgf[$i+1]['option'];
+            else if($hgf[$i]['place'] < $hgf[$i+1]['place'])
+            $out.=$hgf[$i]['option']." > ".$hgf[$i+1]['option'];
+            else {
+              $out.=$hgf[$i]['option']." = ".$hgf[$i+1]['option'];
+            }
+            $firstDone=true;
+          }else{
+            if($hgf[$i]['place'] > $hgf[$i+1]['place'])
+            $out.=" < ".$hgf[$i+1]['option'];
+            else if($hgf[$i]['place'] < $hgf[$i+1]['place'])
+            $out.=" > ".$hgf[$i+1]['option'];
+            else {
+              $out.=" = ".$hgf[$i+1]['option'];
+            }
+          }
+        }else if(($i+1)==(count($hgf)-1)){
+          $out.=$hgf[$i+1]['option'];
+        }
+      }
+    //  echo "<br>".$out;
+      $vote = $electionREAL->addVote($out);
+      //$vote->addTags();     //TAGS MAY NOT BE THE BEST IDEAer.
+    }
+    //echo $electionREAL->countVotes();*/
   }
  ?>
 <hr style="clear:both;">

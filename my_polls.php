@@ -11,7 +11,15 @@ echo '<link rel="stylesheet" href="style.css">
   <a href="createPoll.html" class="w3-button w3-bar-item">Create a Poll</a>
   <a href="vote.html" class="w3-button w3-bar-item">Vote</a>
   </nav>';
-
+  function strposX($haystack, $needle, $number){
+      if($number == '1'){
+          return strpos($haystack, $needle);
+      }elseif($number > '1'){
+          return strpos($haystack, $needle, strposX($haystack, $needle, $number - 1) + strlen($needle));
+      }else{
+          return error_log('Error: Value for parameter $number is out of range');
+      }
+  }
 $host="localhost";
 	$dbusername = "root";
 	$dbpassword = "ILMSIWLTMCD24/7";
@@ -28,7 +36,7 @@ $host="localhost";
 	else{
 		$username=$_SESSION['user_id'];
 		//echo $username;
-		$query = "select `data`, `poll_id`, `open_time`, `input_date_time` from poll_info where username='$username'";
+		$query = "select `data`, `poll_id`, `open_time`, `input_date_time`, `data` from poll_info where username='$username'";
 		$result = $conn->query($query) or die($conn->error);
 		//$result = $conn->query("select `input_date_time`, `open_time` from poll_info where poll_id='$poll_id'") or die($conn->error);
 			//$row = $result->fetch_assoc();
@@ -36,6 +44,9 @@ $host="localhost";
       $dataHolder = array();
 		while($row = $result->fetch_assoc()){
       $dataHolder[$f][0]=$row;
+
+        $dataHolder[$f][1]=substr($row['data'],strposX($row['data'],'|',2)+1);
+      //  echo $dataHolder[$f][1];
 			$ot = $row['open_time'];
 			$time = strtotime($row['input_date_time']." + $ot hour");
 			$mysqlDate = date("Y-m-d H:i:s", $time);
@@ -45,6 +56,7 @@ $host="localhost";
     //  $serialized=htmlspecialchars(serialize($arr));
 			echo "<a href='poll_results.php?index=$f'>Poll Name: ".$arr[0].'</a><br />';
       $_SESSION['arr']=$dataHolder;
+      echo"ok dh passed";
     //  $_SESSION['index']=$f;
     //  var_dump($dataHolder[0][0]);
       //echo "<form><input type='hidden' name='arr' value='$serialized'>";
@@ -68,8 +80,10 @@ $host="localhost";
 			$q = "select value from votes where poll_id='$poll_id'";
 			$r = $conn->query($q) or die($conn->error);
 			$ensureArrGets0FilledOnlyOnce = 0;
+      echo "vale of f: ".$f;
 			if(mysqli_num_rows($r) !=0){
-        $_SESSION['anyVotes']=true;
+        echo "for last you should not be here";
+        $dataHolder[$f][6]=true;//$_SESSION['anyVotes']=true;
 				while($row2 = $r->fetch_assoc()){
 
 					$str2 = $row2['value'];
@@ -85,7 +99,7 @@ $host="localhost";
 
              //$options[$j]= array("option"=>$cat,"place"=>$vo);
              $tarray=array();
-             print_r($arr2);
+            // print_r($arr2);
              for($z=0; $z<count($arr2); $z++){
                //$tarray=array();
                $opt=substr($arr2[$z], 0,strpos($arr2[$z], ":") );
@@ -132,18 +146,18 @@ $host="localhost";
 					echo "-- $cat: $vo<br />";
 				}
         array_multisort(array_column($options, 'place'), SORT_DESC,SORT_NUMERIC,$options);
-        echo"options: ";print_r($options);
-        echo"end options<br>";
+      //  echo"options: ";print_r($options);
+        //echo"end options<br>";
         $dataHolder[$f][4]=$options;
-        $dataHolder[$f][1]=$arr2;
+//        $dataHolder[$f][1]=$arr2;
       //  $_SESSION['votesArr']=$arr2;
         $dataHolder[$f][2]=$mysqlDate;
       //  $_SESSION['date']=$mysqlDate;
       $_SESSION['numVotesArr']=$numVotes;
       $dataHolder[$f][3]=$numVotes;
       $dataHolder[$f][5]=$votesArray;
-
-      print_r($dataHolder[$f][5]);
+       //anyVotes? true or flase;
+      //print_r($dataHolder[$f][5]);
 				/*if(date('Y-m-d H:i:s') > $mysqlDate)
 				{
 					echo "-- Winner: ".$category." -> Votes: ".$votes;
@@ -156,7 +170,9 @@ $host="localhost";
 
 		}
 		else{
-		$_SESSION['anyVotes']=false;
+		$dataHolder[$f][6]=false;
+      $_SESSION['arr']=$dataHolder;
+      echo "SHOULD HAVE zERROR".$dataHolder[$f][6];
   //  sleep(5);
   }
       $f++;
