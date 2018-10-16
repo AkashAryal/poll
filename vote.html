@@ -6,19 +6,20 @@
 <body>
 <nav class="w3-bar w3-black">
   <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
-  <a a href="logout.php" class="w3-button w3-bar-item">Logout</a> 
-  <a href="createPoll.html" class="w3-button w3-bar-item">Create a Poll</a>
+  <a href="logout.php" class="w3-button w3-bar-item">Logout</a>
+    <a href="createPoll.html" class="w3-button w3-bar-item">Create a Poll</a>
   <a href="my_polls.php" class="w3-button w3-bar-item">My Polls</a>
- 
+  <a href="my_votes.php" class="w3-button w3-bar-item">My Votes</a>
+  <a href="test.php" class="w3-button w3-bar-item">User</a>
 </nav>
 
-<form action="vote.php" method="POST"> 
-   Poll ID:
-   <br>
-  <input type="text" name="poll_id"  placeholder="Enter Poll ID">
-  <br />
-   <input type="submit" value="Submit">
+<div class="form-style">
+  <h1>Vote</h1>
+<form action="vote.php" method="POST">
+  <input type="text" name="poll_id"  placeholder="Poll ID">
+  <input type="submit" value="Submit">
 </form>
+</div>
 
 </body>
 </html>

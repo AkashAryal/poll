@@ -7,8 +7,8 @@ if(!isset($_SESSION['user_id'])){
 	echo "<script>alert('Login First!');window.location.href='createPoll.html';</script>";
 	die();
 }
-if(trim($_POST['pollName'])=="" || trim($_POST['numOfOptions'])=="" || !isset($_POST['clicked'])){
-	echo "<script>alert('Empty Fields!')</script>";
+if(trim($_POST['pollName'])=="" || trim($_POST['numOfOptions'])=="" || !isset($_POST['clicked']) || !isset($_POST['typeOfPoll'])){
+	echo "<script>alert('Empty Fields!');window.location.href='createPoll.html';</script>";
 	die();
 }
 $output="";
@@ -44,7 +44,7 @@ $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 	if(mysqli_connect_error()){
 	die("Connection Error (" .mysqli_connect_errno(). ") " . mysqli_connect_error());
 	sleep(5);
-	header('Location: user.php'); 
+	header('Location: user.php');
 	}
 	else{
 		$sql="select poll_id,count(*) as count from poll_info where poll_id='$poll_id'";
@@ -52,16 +52,16 @@ $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 		$result =$conn->query($sql) or die($conn->error);
 		$c=mysqli_fetch_assoc($result);
 		//echo $c['count']
-		
+
 		while($c['count'] >=1){
 			$poll_id= random_int(0,1000000);
 			$sql="select poll_id,count(*) as count from poll_info where poll_id='$poll_id';";
 		$result =$conn->query($sql) or die($conn->error);
 		$c=mysqli_fetch_assoc($result);
 		}
-		
-		$sql= "INSERT INTO poll_info (poll_id, username, input_date_time, open_time, data) values('$poll_id','$username','$input_date_time','$open_time','$data')"; 
-		
+
+		$sql= "INSERT INTO poll_info (poll_id, username, input_date_time, open_time, data) values('$poll_id','$username','$input_date_time','$open_time','$data')";
+
 		if($conn->query($sql)){
 			echo "<script>alert('success');window.location.href='user.php';</script>";
 			//header("Location: user.php");
@@ -70,7 +70,7 @@ $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 			echo"Error: ". $sql ."<br>". $conn->error;
 			sleep(5);
 		}
-		
+
 	}
 	$conn->close();
 	//echo $input_date_time;

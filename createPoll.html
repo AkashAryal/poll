@@ -19,41 +19,44 @@
                 container.appendChild(input);
                 container.appendChild(document.createElement("br"));
             }
-			
+
 			document.getElementById("f").innerHTML=('<input type="hidden" name="clicked" value="">');
         }
 </script>
 <nav class="w3-bar w3-black">
   <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
   <a href="logout.php" class="w3-button w3-bar-item">Logout</a>
-  <a href="my_polls.html" class="w3-button w3-bar-item">My Polls</a>
+  	<a href="vote.html" class="w3-button w3-bar-item">Vote</a>
+  <a href="my_polls.php" class="w3-button w3-bar-item">My Polls</a>
+  <a href="my_votes.php" class="w3-button w3-bar-item">My Votes</a>
+  <a href="test.php" class="w3-button w3-bar-item">User</a>
 </nav>
-<div style="text-align:center;">
+
 
 
 <!-drop down of selections->
+
+<div class="form-style">
+  <h1>Create a Poll</h1>
 <form action="createPoll.php" method="POST">
-<h3>Poll Name</h3>
-<input type="text" name="pollName"><br/>
-<h4>Type of Poll</h4>
+<input type="text" name="pollName" placeholder="Poll Name"><br/>
 <select name="typeOfPoll">
+  <option value="" disabled selected>Select Voting System</option>
   <option value="strawPoll">Staw Poll</option>
-  <option value="condorchet">Condorchet</option>
+  <option value="RankedVoting">Ranked voting</option>
 </select>
 
 <br/>
 
-<h3>Number of Options</h3>
+<input type="number" min="1" step="1" placeholder="Number of Options" id="numOfOptions" name="numOfOptions" value=""><br />
 
-<input type="text" id="numOfOptions" name="numOfOptions" value=""><br />
-
-<a href="#" id="filldetails" onclick="addFields()">Select</a>
+<center><a href="#" id="filldetails" onclick="addFields()" >Select</a></center>
 <div id="f" ></div>
     <div id="container"> </div>
-<h3>Open Time</h3>
-<input type="text" name="open"><br />
-<input type="submit" value="Submit">	
+<input type="number" min="1" step="1" name="open" placeholder="Open Time (Hrs)"><br />
+<input type="submit" value="Submit">
 </form>
-</div>	
+</div>
+
 </body>
 </html>

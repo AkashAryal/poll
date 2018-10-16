@@ -1,4 +1,4 @@
-l<?php
+<?php
 ini_set('session.gc_maxlifetime', 3600);
 session_set_cookie_params(3600);
 session_start();
@@ -6,10 +6,12 @@ session_start();
 echo '<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <nav class="w3-bar w3-black">
-  <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
-  <a a href="logout.php" class="w3-button w3-bar-item">Logout</a>
-  <a href="createPoll.html" class="w3-button w3-bar-item">Create a Poll</a>
-  <a href="vote.html" class="w3-button w3-bar-item">Vote</a>
+<a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
+<a href="logout.php" class="w3-button w3-bar-item">Logout</a>
+<a href="my_votes.html" class="w3-button w3-bar-item">Vote</a>
+<a href="createPoll.html" class="w3-button w3-bar-item">Create a Poll</a>
+<a href="my_votes.php" class="w3-button w3-bar-item">My Votes</a>
+<a href="test.php" class="w3-button w3-bar-item">User</a>
   </nav>';
   function strposX($haystack, $needle, $number){
       if($number == '1'){
@@ -50,6 +52,7 @@ $host="localhost";
 			$ot = $row['open_time'];
 			$time = strtotime($row['input_date_time']." + $ot hour");
 			$mysqlDate = date("Y-m-d H:i:s", $time);
+      $dataHolder[$f][2]=$mysqlDate;
 			$str=$row['data']."<br />";
 			$arr=explode('|',$str);
     //  var_dump($arr);
@@ -151,7 +154,7 @@ $host="localhost";
         $dataHolder[$f][4]=$options;
 //        $dataHolder[$f][1]=$arr2;
       //  $_SESSION['votesArr']=$arr2;
-        $dataHolder[$f][2]=$mysqlDate;
+        //$dataHolder[$f][2]=$mysqlDate;
       //  $_SESSION['date']=$mysqlDate;
       $_SESSION['numVotesArr']=$numVotes;
       $dataHolder[$f][3]=$numVotes;
@@ -172,6 +175,7 @@ $host="localhost";
 		else{
 		$dataHolder[$f][6]=false;
       $_SESSION['arr']=$dataHolder;
+
       echo "SHOULD HAVE zERROR".$dataHolder[$f][6];
   //  sleep(5);
   }

@@ -7,22 +7,17 @@ alert when session reaches timout (1 hr) and return to Poll_home.html->
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <link rel="stylesheet" href="style.css">
-<p>login</p> 
+
 <nav class="w3-bar w3-black">
   <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
   <a href="sign-up.html" class="w3-button w3-bar-item">Sign-Up</a>
-  <a href="user.html" class="w3-button w3-bar-item">user temp</a>
 </nav>
-
+<div class="form-style">
+  <h1>Login</h1>
 <form action="login.php" method="POST"> <!- method, action used for database Link to user.html in php after successful login->
-  Username:
-  <br>
   <input type="text" name="username" placeholder="Enter Username">
-  <br>
-  Password:
-  <br>
-  <input type="password" name="password" placeholder="Enter Username">
-  <br>
+  <input type="password" name="password" placeholder="Enter Password">
   <input type="submit" value="Submit">
 </form>
+</div>
 </html>

@@ -128,7 +128,7 @@ for($ii=0; $ii<count($votesArray);$ii++){
       $out.=$hgf[$i+1]['option'];
     }
   }
-//  echo "<br>".$out;
+ echo "<br>".$out;
   $vote = $electionREAL->addVote($out);
   //$vote->addTags();     //TAGS MAY NOT BE THE BEST IDEAer.
 }
@@ -254,57 +254,16 @@ $PollName=" ".$arr[0];
 
 <?php
   //$date=$array[$index][2];  //|| $_SESSION['anyVotes']==true
-  if(isset($array[$index][2]))
-  {
-    $date=$array[$index][2];
-    if(date('Y-m-d H:i:s') > $date){
 
+    $date=$array[$index][2];
+    if(date('Y-m-d H:i:s') > $date && $array[$index][6]){
+      echo "we good";
     }  else {
+      echo "die";
         die();
       }
-    /*$electionREAL= new Election();
 
-    //add canidates. can use any index from votesarr
-    for($ii=0; $ii<count($votesArray[0]);$ii++){
-      $electionREAL->addCandidate($votesArray[0][$ii]['option']);
-    }
-    for($ii=0; $ii<count($votesArray);$ii++){
-      $out="";
-      $firstDone=false;
-      $hgf=$votesArray[$ii];
-      for($i=0; $i<(count($hgf)-1); $i++)           //IMPORTANT: IF ALL VOTES ARE 0 THEN YOU SHOULD NOT PUT AT ALL.
-      {                                             //cHECK IF STRING IS NULL WHEN IMPLEMENTING THIS!!!!!
-                                                  //IF ALL VOTES ARE 3 OR 2 OR 1 OR ANY NON ZERO THEN YOU CAN
-      //echo "<br>".$hgf[$i]['option'];           //INPUT THEM. CONDORCET ALLOWS YOU IT.
-        if(!$hgf[$i]['place']==0){
-          if($firstDone==false){
-            if($hgf[$i]['place'] > $hgf[$i+1]['place'])
-            $out.=$hgf[$i]['option']." < ".$hgf[$i+1]['option'];
-            else if($hgf[$i]['place'] < $hgf[$i+1]['place'])
-            $out.=$hgf[$i]['option']." > ".$hgf[$i+1]['option'];
-            else {
-              $out.=$hgf[$i]['option']." = ".$hgf[$i+1]['option'];
-            }
-            $firstDone=true;
-          }else{
-            if($hgf[$i]['place'] > $hgf[$i+1]['place'])
-            $out.=" < ".$hgf[$i+1]['option'];
-            else if($hgf[$i]['place'] < $hgf[$i+1]['place'])
-            $out.=" > ".$hgf[$i+1]['option'];
-            else {
-              $out.=" = ".$hgf[$i+1]['option'];
-            }
-          }
-        }else if(($i+1)==(count($hgf)-1)){
-          $out.=$hgf[$i+1]['option'];
-        }
-      }
-    //  echo "<br>".$out;
-      $vote = $electionREAL->addVote($out);
-      //$vote->addTags();     //TAGS MAY NOT BE THE BEST IDEAer.
-    }
-    //echo $electionREAL->countVotes();*/
-  }
+
  ?>
 <hr style="clear:both;">
 
@@ -312,25 +271,25 @@ $PollName=" ".$arr[0];
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($election->getWinner()) )
-			{ echo $election->getWinner() ;}
+		if ( !is_null($electionREAL->getWinner()) )
+			{ echo $electionREAL->getWinner() ;}
 		else
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
 		<br>
-		<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo $electionREAL->getLastTimer() ; ?> second(s).</em>	</strong>
 
 	<h2>Loser by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($election->getLoser()) )
-			{ echo $election->getLoser() ;}
+		if ( !is_null($electionREAL->getLoser()) )
+			{ echo $electionREAL->getLoser() ;}
 		else
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
 		<br>
-		<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo $electionREAL->getLastTimer() ; ?> second(s).</em>	</strong>
 	</strong>
 
 <br><br><hr>
@@ -342,8 +301,8 @@ $PollName=" ".$arr[0];
 		<h2>Ranking by <?php echo $method ?>:</h2>
 
 		<?php
-			$result = $election->getResult($method) ;
-			$lastTimer = $election->getLastTimer() ;
+			$result = $electionREAL->getResult($method) ;
+			$lastTimer = $electionREAL->getLastTimer() ;
 			if ( $method === 'Kemeny–Young' && !empty($result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)) )
 			{
 				$kemeny_conflicts = explode( ';', $result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)[0]['msg'] ) ;
@@ -364,9 +323,9 @@ $PollName=" ".$arr[0];
 	<?php }
 ?>
 <br><br><hr><br>
-<strong style="color:green;">Total computed in <?php echo $election->getGlobalTimer() ; ?> second(s).</strong>
+<strong style="color:green;">Total computed in <?php echo $electionREAL->getGlobalTimer() ; ?> second(s).</strong>
 <br>
-<?php var_dump($election->getTimerManager()->getHistory()); ?>
+<?php var_dump($electionREAL->getTimerManager()->getHistory()); ?>
 <br><br><hr>
 
 <h2>Computing statistics :</h2>
@@ -374,7 +333,7 @@ $PollName=" ".$arr[0];
 	<h3>Pairwise :</h3>
 
 	<pre>
-	<?php var_dump( CondorcetUtil::format($election->getPairwise()) ); ?>
+	<?php var_dump( CondorcetUtil::format($electionREAL->getPairwise()) ); ?>
 	</pre>
 
 	<?php
@@ -383,7 +342,7 @@ $PollName=" ".$arr[0];
 		<h3>Stats for <?php echo $method ?>:</h3>
 
 		<pre>
-		<?php var_dump( CondorcetUtil::format($election->getResult($method)->getStats()) ); ?>
+		<?php var_dump( CondorcetUtil::format($electionREAL->getResult($method)->getStats()) ); ?>
 		</pre>
 
 	<?php } ?>
