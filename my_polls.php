@@ -3,12 +3,13 @@ ini_set('session.gc_maxlifetime', 3600);
 session_set_cookie_params(3600);
 session_start();
 
+  echo "<center><h1>My Polls</h1></center>";
 echo '<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <nav class="w3-bar w3-black">
 <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
 <a href="logout.php" class="w3-button w3-bar-item">Logout</a>
-<a href="my_votes.html" class="w3-button w3-bar-item">Vote</a>
+<a href="vote.html" class="w3-button w3-bar-item">Vote</a>
 <a href="createPoll.html" class="w3-button w3-bar-item">Create a Poll</a>
 <a href="my_votes.php" class="w3-button w3-bar-item">My Votes</a>
 <a href="test.php" class="w3-button w3-bar-item">User</a>
@@ -22,6 +23,7 @@ echo '<link rel="stylesheet" href="style.css">
           return error_log('Error: Value for parameter $number is out of range');
       }
   }
+  echo "<p><em>Click on Poll Name for more details</em></p>";
 $host="localhost";
 	$dbusername = "root";
 	$dbpassword = "ILMSIWLTMCD24/7";
@@ -29,7 +31,6 @@ $host="localhost";
 
 	//create connection
 	$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-
 	if(mysqli_connect_error()){
 		die("Connection Error (" .mysql_connect_errno(). ") " . mysql_connect_error());
 		sleep(5);
@@ -57,9 +58,10 @@ $host="localhost";
 			$arr=explode('|',$str);
     //  var_dump($arr);
     //  $serialized=htmlspecialchars(serialize($arr));
+
 			echo "<a href='poll_results.php?index=$f'>Poll Name: ".$arr[0].'</a><br />';
       $_SESSION['arr']=$dataHolder;
-      echo"ok dh passed";
+    //  echo"ok dh passed";
     //  $_SESSION['index']=$f;
     //  var_dump($dataHolder[0][0]);
       //echo "<form><input type='hidden' name='arr' value='$serialized'>";
@@ -83,9 +85,9 @@ $host="localhost";
 			$q = "select value from votes where poll_id='$poll_id'";
 			$r = $conn->query($q) or die($conn->error);
 			$ensureArrGets0FilledOnlyOnce = 0;
-      echo "vale of f: ".$f;
+      //echo "vale of f: ".$f;
 			if(mysqli_num_rows($r) !=0){
-        echo "for last you should not be here";
+      //  echo "for last you should not be here";
         $dataHolder[$f][6]=true;//$_SESSION['anyVotes']=true;
 				while($row2 = $r->fetch_assoc()){
 
@@ -106,7 +108,7 @@ $host="localhost";
              for($z=0; $z<count($arr2); $z++){
                //$tarray=array();
                $opt=substr($arr2[$z], 0,strpos($arr2[$z], ":") );
-               echo "<br>$opt";
+              // echo "<br>$opt";
                $rank=(int)substr($arr2[$z], strpos($arr2[$z], ":")+1);
                $tarray[$z]=array("option"=>$opt, "place"=>$rank);
              }
@@ -125,7 +127,7 @@ $host="localhost";
 				}
         //echo "<br>";
       //  print_r($votesArray);
-        echo "<br><br>";
+      //  echo "<br><br>";
         //$_SESSION['votesArray']=$votesArray;
 
 				$maxIndex=array_search(max($numVotes), $numVotes);
@@ -146,7 +148,7 @@ $host="localhost";
           //  echo "Vote: <br>";
           //print_r($options);
 
-					echo "-- $cat: $vo<br />";
+				//	echo "-- $cat: $vo<br />";
 				}
         array_multisort(array_column($options, 'place'), SORT_DESC,SORT_NUMERIC,$options);
       //  echo"options: ";print_r($options);
@@ -176,7 +178,7 @@ $host="localhost";
 		$dataHolder[$f][6]=false;
       $_SESSION['arr']=$dataHolder;
 
-      echo "SHOULD HAVE zERROR".$dataHolder[$f][6];
+    //  echo "SHOULD HAVE zERROR".$dataHolder[$f][6];
   //  sleep(5);
   }
       $f++;

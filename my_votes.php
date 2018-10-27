@@ -3,6 +3,7 @@ ini_set('session.gc_maxlifetime', 3600);
 session_set_cookie_params(3600);
 session_start();
 
+echo "<center><h1>My Votes</h1></center>";
 echo '<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <nav class="w3-bar w3-black">

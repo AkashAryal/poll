@@ -9,14 +9,14 @@ $host="localhost";
 	$dbusername = "root";
 	$dbpassword = "ILMSIWLTMCD24/7";
 	$dbname="poll";
-	
+
 	//create connection
 	$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-	
+
 	if(mysqli_connect_error()){
 	die("Connection Error (" .mysqli_connect_errno(). ") " . mysqli_connect_error());
 	sleep(5);
-	header('Location: sign-up.html'); 
+	header('Location: sign-up.html');
 	}
 	else{
 		$numOptions = $_POST['options'];
@@ -33,8 +33,8 @@ $host="localhost";
 			$output .= "$arr[$o]: 0|";
 		}
 		$trimmed=substr("$output", 0, strlen("$output")-1);
-		echo "$trimmed";
-		
+	//	echo "$trimmed";
+
 		//send trimmed to database;
 		$poll_id=$_POST['poll_id'];
 		$user=$_SESSION['user_id'];

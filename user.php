@@ -15,6 +15,9 @@ echo "<script>alert('Log back in!');window.location.href='Poll_home.html';</scri
 ?>
 </head>
 <body>
+	<?php
+	echo "<center><h1>Welcome ".$_SESSION['user_id']."</h1></center>";
+	?>
 <nav class="w3-bar w3-black">
   <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
   <a a href="logout.php" class="w3-button w3-bar-item">Logout</a>
@@ -23,11 +26,6 @@ echo "<script>alert('Log back in!');window.location.href='Poll_home.html';</scri
   <a href="my_polls.php" class="w3-button w3-bar-item">My Polls</a>
   <a href="my_votes.php" class="w3-button w3-bar-item">My Votes</a>
 </nav>
-
-<?php
-echo "<h1>".$_SESSION['user_id']."</h1>";
-?>
-
 
 </body>
 

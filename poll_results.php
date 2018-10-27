@@ -16,7 +16,8 @@ setcookie("PHPSESSID","",time()-3600,"/");
 echo "<script>alert('Log back in!');window.location.href='login.html';</script>";
   die();
 }
-//ADD TAGS FOR 1st 2nd 3rd 4th etc... choice and CATEGORY
+
+
   $election = new Election () ;
 
   // Create your own candidate object
@@ -60,35 +61,27 @@ $myVote3->addTags('first');
 
 $array= $_SESSION['arr'];
 $index = $_GET['index'];
-echo $index;
+//echo $index;
 if($array[$index][6]){
 $votesArray=$array[$index][5];
-echo"Before: ";
-print_r($votesArray);
-echo "<br>";
+
 
 for($l=0;$l<count($votesArray); $l++)
 {
     array_multisort(array_column($votesArray[$l], 'place'), SORT_ASC,SORT_NUMERIC,$votesArray[$l]);
 }
-echo "<br>After: ";
-print_r($votesArray);
-
-
 $options=$array[$index][4];
 //print_r($array[$index][4]);
-echo "optoins Arr:<br>";
-print_r($options);
+
+//print_r($options);
 //echo "<br>".$options[1]['option'];
 
-echo"<br><br>A5:";
 //print_r($votesArray[5]);
 //$hgf=$votesArray[5];
 //echo $hgf[1]['option'];
 //echo count($votesArray);
 //$out="";
 //$firstDone=false;
-echo "<br><br>";
 //echo "<br>".$out;
           //CREATING Election
 $electionREAL= new Election();
@@ -128,7 +121,6 @@ for($ii=0; $ii<count($votesArray);$ii++){
       $out.=$hgf[$i+1]['option'];
     }
   }
- echo "<br>".$out;
   $vote = $electionREAL->addVote($out);
   //$vote->addTags();     //TAGS MAY NOT BE THE BEST IDEAer.
 }
@@ -146,7 +138,7 @@ else {
 
 
 $arr2=$array[$index][1];
-$numVotes=$_SESSION['numVotesArr'];
+//$numVotes=$_SESSION['numVotesArr'];
 $arrForListCand=explode("|",$arr2);
 
 $row = $array[$index][0];
@@ -171,9 +163,19 @@ $PollName=" ".$arr[0];
  	</style>
  </head>
  <body>
-
-	<h1><?php echo "Poll Results: $PollName";?></h1>
-
+   <h1><?php echo "<center><h1>Poll Results</center></h1>";?></h1>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+  <nav class="w3-bar w3-black">
+  <a href="Poll_home.html" class="w3-button w3-bar-item">Home</a>
+  <a href="logout.php" class="w3-button w3-bar-item">Logout</a>
+  <a href="vote.html" class="w3-button w3-bar-item">Vote</a>
+  <a href="createPoll.html" class="w3-button w3-bar-item">Create a Poll</a>
+  <a href="my_votes.php" class="w3-button w3-bar-item">My Votes</a>
+  <a href="my_polls.php" class="w3-button w3-bar-item">My Polls</a>
+  <a href="test.php" class="w3-button w3-bar-item">User</a>
+    </nav>
+    <h1><?php echo "<h1>Results for Poll: $PollName</h1>";?></h1>
 	<em>
           <!-Update num of options, votes. Input Votes.->
 		<?php echo "Poll Type: ".$arr[1]." | Poll ID: ".$row['poll_id']."<br />";
@@ -191,9 +193,8 @@ $PollName=" ".$arr[0];
     echo "0";?>
 	</em>
 
-	<h2>Candidates list (Stats go here?):</h2>
-
-	<ul>
+	<h2>Candidate list (Statistical analysis of votes will be added here later):</h2>
+<ul>
 	<?php
   //var_dump($arr);
   //echo"<pre>";
@@ -259,7 +260,7 @@ $PollName=" ".$arr[0];
     if(date('Y-m-d H:i:s') > $date && $array[$index][6]){
       echo "we good";
     }  else {
-      echo "die";
+//echo "die";
         die();
       }
 

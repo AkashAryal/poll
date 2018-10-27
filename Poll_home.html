@@ -15,7 +15,7 @@ prevent user from voting twice --Done
 Select button padding
 Dont't show condorchet winners and other stats unless poll is finished. Only show options + #votes->
 <head>
-<title>Poll - Orange Slice</title>
+<title>akashpolls</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
@@ -30,5 +30,27 @@ Dont't show condorchet winners and other stats unless poll is finished. Only sho
   <a href="test.php" class="w3-button w3-bar-item">Login</a>
 </nav>
 
+<div style="margin:10px">
+<h1>Who?</h1>
+<p>This website is created by Akash Aryal. I am currently a student at Manhattan Highschool</p>
+<h1>What?</h1>
+<p>This is a polling website that utilizes various polling methods and techniques to choose a winner. Statistical analysis of votes will be added later.</p>
+<h1>When?</h1>
+<p>Project Started summer of my Junior Year (2018)<p>
+<h1>Why?</h1>
+<p>I like learning by doing, so I started this project as a way to learn the basics of web development.
+Source code for this project can be found at https://github.com/AkashAryal/poll.git.</p>
+<h1>How?</h1>
+<p><ul><li>Languages Used: html, css, javascript, php, mysql</li>
+  <li>Relational Database model/Entity-Relationship(ER) Diagram:</li>
+  <img src="ER_Diagram.svg" alt="ER Diagram of Database">
+  <li>Login System: username and password are stored in a database. Passwords are stored in an encrypted form that utilizes salts.</li>
+  <li>User will get timed out every hour. Session cookies are used. Logging off will destroy all cookies</li>
+  <li>Polls are created by the user and given a unique id that gets stored in the database along with the rest of the poll information.</li>
+  <li>Voting on a poll requires a poll id. The database is used to ensure that you only vote once and your vote is within the timeframe
+  the creater of the poll set. Votes are stored in the database.</li>
+  <li>Hosting on 000webhost as it is free and easy to use.</li></ul>
+</p>
+</div>
 </body>
 </html>
